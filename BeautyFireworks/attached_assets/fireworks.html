@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firework Effect</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Gaya untuk tombol */
+        .button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #888888;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background-color: #666666;
+        }
+
+        #nextButton {
+            display: none;
+        }
+
+        #countdown {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <!-- Audio tanpa autoplay -->
+    <audio id="bgMusic" loop>
+        <source src="https://l.top4top.io/m_3361crxzl1.mp3" type="audio/mp3">
+    </audio>
+
+    <div id="countdown">25</div>
+    <button class="button" id="playButton" onclick="startSequence()">Play</button>
+    <button class="button" id="nextButton" onclick="goToNextPage()">Next</button>
+
+    <script src="fireworks.js"></script>
+    <script>
+        function startSequence() {
+            var audio = document.getElementById("bgMusic");
+            var countdownElement = document.getElementById("countdown");
+            var playButton = document.getElementById("playButton");
+            var nextButton = document.getElementById("nextButton");
+
+            // Mulai musik
+            audio.play().then(() => {
+                playButton.style.display = "none"; // Sembunyikan tombol Play
+                countdownElement.style.display = "block"; // Tampilkan countdown
+
+                let countdown = 25;
+                countdownElement.innerText = countdown;
+
+                let interval = setInterval(() => {
+                    countdown--;
+                    countdownElement.innerText = countdown;
+                    if (countdown <= 0) {
+                        clearInterval(interval);
+                        countdownElement.style.display = "none"; // Sembunyikan countdown
+                        nextButton.style.display = "block"; // Tampilkan tombol Next
+                    }
+                }, 1000);
+            }).catch(error => console.log("Autoplay gagal:", error));
+        }
+
+        function goToNextPage() {
+            window.location.href = "next.html"; // Ganti dengan halaman tujuan
+        }
+    </script>
+</body>
+</html>

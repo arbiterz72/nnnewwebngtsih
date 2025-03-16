@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Verifikasi PIN</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #ffcccc;
+                background-image: url("https://www.transparenttextures.com/patterns/hearts.png");
+                background-size: 100px 100px;
+            }
+            .container {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                max-width: 90%;
+                width: 400px;
+            }
+            .photo-frame {
+                width: 150px;
+                height: 150px;
+                border: 2px solid #000;
+                border-radius: 10px;
+                margin: 0 auto 10px auto;
+                background-image: url("panda.jpeg"); /* Gambar Panda */
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            input {
+                padding: 10px;
+                font-size: 18px;
+                text-align: center;
+                letter-spacing: 5px;
+                width: 100%;
+                max-width: 200px;
+                margin: 10px 0;
+            }
+            button {
+                margin-top: 10px;
+                padding: 10px;
+                font-size: 16px;
+                cursor: pointer;
+                width: 100%;
+                max-width: 200px;
+                border: none;
+                border-radius: 5px;
+            }
+            .submit-btn {
+                background-color: #007bff;
+                color: white;
+            }
+            .submit-btn:hover {
+                background-color: #0056b3;
+            }
+            .next-btn {
+                background-color: #28a745;
+                color: white;
+                display: none; /* Sembunyikan dulu */
+            }
+            .next-btn:hover {
+                background-color: #218838;
+            }
+            .message {
+                margin-top: 10px;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Elemen audio -->
+        <audio id="bgMusic">
+            <source
+                src="https://j.top4top.io/m_3361c49bk1.mp3"
+                type="audio/mp3"
+            />
+        </audio>
+
+        <div class="container">
+            <h2>HAI, MARTA Masukkan PINnya dulu ya 😊</h2>
+            <div class="photo-frame"></div>
+            <h2>Masukkan PIN</h2>
+            <input type="password" id="pin" maxlength="8" />
+            <br />
+            <button class="submit-btn" onclick="verifikasiPIN()">Submit</button>
+            <button
+                class="next-btn"
+                id="nextButton"
+                onclick="playMusicAndGoToNextPage()"
+            >
+                Next
+            </button>
+            <p class="message" id="message"></p>
+        </div>
+
+        <script>
+            function verifikasiPIN() {
+                const correctPIN = "19032004";
+                const inputPIN = document.getElementById("pin").value;
+                const message = document.getElementById("message");
+                const nextButton = document.getElementById("nextButton");
+
+                if (inputPIN === correctPIN) {
+                    message.textContent = "PIN Benar! Klik Next untuk kejutan!";
+                    message.style.color = "green";
+                    nextButton.style.display = "block"; // Tampilkan tombol Next
+                } else {
+                    message.textContent = "Maaf, PIN salah. Masukkan ulang ya!";
+                    message.style.color = "red";
+                }
+            }
+
+            function playMusicAndGoToNextPage() {
+                var audio = document.getElementById("bgMusic");
+                audio
+                    .play()
+                    .catch((error) => console.log("Autoplay diblokir:", error)); // Jika autoplay diblokir, tidak ada error
+                window.location.href = "index.html"; // Pindah ke halaman efek kembang api
+            }
+        </script>
+    </body>
+</html>
